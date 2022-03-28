@@ -1,8 +1,15 @@
-import React from "react";
-import Figure, { FigureType } from "./Figure";
+import { useContext } from "react";
+import { AppContext, DispatchContext } from "../state/state";
+import Figure from "./Figure";
 
 const TopBar = () => {
-  const player: FigureType = "x";
+  const { currentTurn } = useContext(AppContext);
+  const dispatch = useContext(DispatchContext);
+
+  const handleReset = () => {
+    if (!dispatch) return;
+    dispatch({ type: "reset" });
+  };
 
   return (
     <div className="m-1 grid gap-4 grid-cols-3">
@@ -17,13 +24,13 @@ const TopBar = () => {
                 flex items-center justify-center text-gray"
       >
         <span className="h-4 mr-2">
-          <Figure figure={player} color="#a7bfc9" />
+          <Figure figure={currentTurn} color="#a7bfc9" />
         </span>
         <span className="text-md font-bold">TURN</span>
       </div>
       <div className="flex justify-end items-center">
         <button
-          onClick={() => {}}
+          onClick={handleReset}
           className="w-9 h-9 rounded-lg bg-gray text-main
                     flex justify-center items-center"
         >

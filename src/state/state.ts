@@ -11,8 +11,12 @@ export interface AppState {
     o: number;
     ties: number;
   };
-  currentTurn: FigureType;
+  currentTurn: "x" | "o";
 }
+
+const getRandomCurrentTurn = () => {
+  return Math.random() < 0.5 ? "x" : "o";
+};
 
 export const initialState: AppState = {
   board,
@@ -21,7 +25,7 @@ export const initialState: AppState = {
     o: 0,
     ties: 0,
   },
-  currentTurn: "",
+  currentTurn: getRandomCurrentTurn(),
 };
 
 export const AppContext = createContext<AppState>(initialState);

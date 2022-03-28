@@ -1,12 +1,11 @@
 import { useContext } from "react";
 import { AppContext } from "../state/state";
 import Cell from "./Cell";
-import { FigureType } from "./Figure";
 import Infocell from "./Infocell";
 import TopBar from "./TopBar";
 
 const Board = () => {
-  const board: FigureType[] = useContext(AppContext).board;
+  const { board, score } = useContext(AppContext);
 
   return (
     <div className="container mx-auto p-10 sm:w-full md:w-[31rem]">
@@ -17,9 +16,9 @@ const Board = () => {
         ))}
       </div>
       <div className="m-1 columns-3">
-        <Infocell score={10} figure={"x"} />
-        <Infocell score={2} figure={""} />
-        <Infocell score={34} figure={"o"} />
+        <Infocell score={score.x} figure={"x"} />
+        <Infocell score={score.ties} figure={""} />
+        <Infocell score={score.o} figure={"o"} />
       </div>
     </div>
   );

@@ -1,34 +1,57 @@
 import { FC, Reducer, ReducerAction, useReducer } from "react";
 import { FigureType } from "../components/Figure";
-import { AppContext, AppState, DispatchContext, initialState } from "./state";
+import {
+  AppContext,
+  AppState,
+  board,
+  DispatchContext,
+  initialState,
+} from "./state";
 
 export interface IActionPayload {
-  type: "setCell" | "incrementScore" | "resetBoard" | "reset";
-  payload: {
-    figure: FigureType;
+  type: "setCell" | "incrementScore" | "incrementTie" | "resetBoard" | "reset";
+  payload?: {
     index?: number;
   };
 }
 
 type IAction = Reducer<AppState, IActionPayload>;
 
+const checkWinner = (board: FigureType[]): boolean => {
+  if (
+    (board[0] !== "" && board[0] === board[1] && board[1] === board[2]) ||
+    (board[3] !== "" && board[3] === board[4] && board[4] === board[5]) ||
+    (board[6] !== "" && board[6] === board[7] && board[7] === board[8]) ||
+    (board[0] !== "" && board[0] === board[3] && board[3] === board[6]) ||
+    (board[1] !== "" && board[1] === board[4] && board[4] === board[7]) ||
+    (board[2] !== "" && board[2] === board[5] && board[5] === board[8]) ||
+    (board[0] !== "" && board[0] === board[4] && board[4] === board[8]) ||
+    (board[2] !== "" && board[2] === board[4] && board[4] === board[6])
+  )
+    return true;
+  return false;
+};
+
 export function AppReducer(state: AppState, action: ReducerAction<IAction>) {
   const currentTurn: FigureType = state.currentTurn === "o" ? "x" : "o";
   switch (action.type) {
     case "setCell":
-      if (!action.payload.index) return state;
-      const board = [...state.board];
-      board[action.payload.index] = action.payload.figure;
-      return { ...state, board, currentTurn };
+      if (action?.payload?.index === undefined) return state;
+      let board = [...state.board];
+      const score = { ...state.score };
+      if (board[action.payload.index] !== "") return state;
+      board[action.payload.index] = state.currentTurn;
+
+      if (checkWinner(board)) {
+        // TODO: add congratulations
+        score[state.currentTurn]++;
+        board = initialState.board;
+        return { board, score, currentTurn };
+      } else return { board, score, currentTurn };
     case "resetBoard":
       return { ...state, board: initialState.board, currentTurn };
-    case "incrementScore":
-      const score = { ...state.score };
-      if (action.payload.figure === "") score.ties++;
-      else score[action.payload.figure]++;
-      return { ...state, score, currentTurn };
     case "reset":
-      return initialState;
+      return { ...initialState, currentTurn };
     default:
       throw new Error("Not valid action type!");
   }
@@ -36,7 +59,7 @@ export function AppReducer(state: AppState, action: ReducerAction<IAction>) {
 
 const AppContextProvider: FC = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
-  console.log(state, dispatch);
+  // console.log(dispatch);
   return (
     <AppContext.Provider value={state}>
       <DispatchContext.Provider value={dispatch}>

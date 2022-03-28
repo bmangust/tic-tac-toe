@@ -1,5 +1,4 @@
-import { useContext, useReducer } from "react";
-import { AppReducer } from "../state/AppContextProvider";
+import { useContext } from "react";
 import { DispatchContext } from "../state/state";
 import Figure, { FigureType } from "./Figure";
 
@@ -12,9 +11,8 @@ const Cell = ({ figure = "", index }: Props) => {
   const dispatch = useContext(DispatchContext);
 
   const handleClick = () => {
-    console.log(dispatch);
     if (!dispatch) return;
-    dispatch({ type: "setCell", payload: { index, figure } });
+    dispatch({ type: "setCell", payload: { index } });
   };
 
   return (
