@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { DispatchContext } from "../state/state";
+import { AppContext, DispatchContext } from "../state/state";
 import Figure, { FigureType } from "./Figure";
 
 interface Props {
@@ -9,6 +9,7 @@ interface Props {
 
 const Cell = ({ figure = "", index }: Props) => {
   const dispatch = useContext(DispatchContext);
+  const { currentTurn } = useContext(AppContext);
 
   const handleClick = () => {
     if (!dispatch) return;
@@ -19,9 +20,15 @@ const Cell = ({ figure = "", index }: Props) => {
     <div
       className="rounded-2xl p-8 bg-cell shadow-md
     grid place-content-center min-w-[8rem] min-h-[8rem]
-    cursor-pointer"
+    cursor-pointer group"
       onClick={handleClick}
     >
+      {figure === "" && (
+        <Figure
+          figure={currentTurn}
+          className="opacity-0 duration-200 group-hover:opacity-50"
+        />
+      )}
       <Figure figure={figure} />
     </div>
   );

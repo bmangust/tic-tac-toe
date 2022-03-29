@@ -1,12 +1,6 @@
 import { FC, Reducer, ReducerAction, useReducer } from "react";
 import { FigureType } from "../components/Figure";
-import {
-  AppContext,
-  AppState,
-  board,
-  DispatchContext,
-  initialState,
-} from "./state";
+import { AppContext, AppState, DispatchContext, initialState } from "./state";
 
 export interface IActionPayload {
   type: "setCell" | "incrementScore" | "incrementTie" | "resetBoard" | "reset";
@@ -68,7 +62,6 @@ export function AppReducer(state: AppState, action: ReducerAction<IAction>) {
 
 const AppContextProvider: FC = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
-  // console.log(dispatch);
   return (
     <AppContext.Provider value={state}>
       <DispatchContext.Provider value={dispatch}>
