@@ -32,6 +32,11 @@ const checkWinner = (board: FigureType[]): boolean => {
   return false;
 };
 
+const checkTie = (board: FigureType[]): boolean => {
+  const isTie = board.reduce((prev, cur) => prev && cur !== "", true);
+  return isTie;
+};
+
 export function AppReducer(state: AppState, action: ReducerAction<IAction>) {
   const currentTurn: FigureType = state.currentTurn === "o" ? "x" : "o";
   switch (action.type) {
@@ -47,13 +52,17 @@ export function AppReducer(state: AppState, action: ReducerAction<IAction>) {
         score[state.currentTurn]++;
         board = initialState.board;
         return { board, score, currentTurn };
+      } else if (checkTie(board)) {
+        score.ties++;
+        board = initialState.board;
+        return { board, score, currentTurn };
       } else return { board, score, currentTurn };
     case "resetBoard":
       return { ...state, board: initialState.board, currentTurn };
     case "reset":
       return { ...initialState, currentTurn };
     default:
-      throw new Error("Not valid action type!");
+      throw new Error("Not a valid action type!");
   }
 }
 
