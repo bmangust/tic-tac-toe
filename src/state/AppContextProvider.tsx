@@ -11,19 +11,80 @@ export interface IActionPayload {
 
 type IAction = Reducer<AppState, IActionPayload>;
 
-const checkWinner = (board: FigureType[]): boolean => {
-  if (
-    (board[0] !== "" && board[0] === board[1] && board[1] === board[2]) ||
-    (board[3] !== "" && board[3] === board[4] && board[4] === board[5]) ||
-    (board[6] !== "" && board[6] === board[7] && board[7] === board[8]) ||
-    (board[0] !== "" && board[0] === board[3] && board[3] === board[6]) ||
-    (board[1] !== "" && board[1] === board[4] && board[4] === board[7]) ||
-    (board[2] !== "" && board[2] === board[5] && board[5] === board[8]) ||
-    (board[0] !== "" && board[0] === board[4] && board[4] === board[8]) ||
-    (board[2] !== "" && board[2] === board[4] && board[4] === board[6])
-  )
-    return true;
-  return false;
+interface IWinner {
+  winnerFound: boolean;
+  isTie: boolean;
+  winner: FigureType;
+  winnerBoard: FigureType[];
+}
+
+const checkWinner = (board: FigureType[]): IWinner => {
+  const getWinner = (winner: FigureType, winnerCells: number[]): IWinner => {
+    const result: IWinner = {
+      winnerFound: false,
+      isTie: false,
+      winner: "",
+      winnerBoard: [...board],
+    };
+    result.winnerFound = true;
+    result.winner = board[0];
+    winnerCells.forEach(
+      (i) => (result.winnerBoard[i] = winner === "x" ? "X" : "O")
+    );
+    return result;
+  };
+
+  if (board[0] !== "" && board[0] === board[1] && board[1] === board[2]) {
+    return getWinner(board[0], [0, 1, 2]);
+  } else if (
+    board[3] !== "" &&
+    board[3] === board[4] &&
+    board[4] === board[5]
+  ) {
+    return getWinner(board[3], [3, 4, 5]);
+  } else if (
+    board[6] !== "" &&
+    board[6] === board[7] &&
+    board[7] === board[8]
+  ) {
+    return getWinner(board[6], [6, 7, 8]);
+  } else if (
+    board[0] !== "" &&
+    board[0] === board[3] &&
+    board[3] === board[6]
+  ) {
+    return getWinner(board[0], [0, 3, 6]);
+  } else if (
+    board[1] !== "" &&
+    board[1] === board[4] &&
+    board[4] === board[7]
+  ) {
+    return getWinner(board[1], [1, 4, 7]);
+  } else if (
+    board[2] !== "" &&
+    board[2] === board[5] &&
+    board[5] === board[8]
+  ) {
+    return getWinner(board[2], [2, 5, 8]);
+  } else if (
+    board[0] !== "" &&
+    board[0] === board[4] &&
+    board[4] === board[8]
+  ) {
+    return getWinner(board[0], [0, 4, 8]);
+  } else if (
+    board[2] !== "" &&
+    board[2] === board[4] &&
+    board[4] === board[6]
+  ) {
+    return getWinner(board[0], [2, 4, 6]);
+  } else
+    return {
+      winnerFound: false,
+      isTie: false,
+      winner: "",
+      winnerBoard: [...board],
+    };
 };
 
 const checkTie = (board: FigureType[]): boolean => {
@@ -31,7 +92,10 @@ const checkTie = (board: FigureType[]): boolean => {
   return isTie;
 };
 
-export function AppReducer(state: AppState, action: ReducerAction<IAction>) {
+export function AppReducer(
+  state: AppState,
+  action: ReducerAction<IAction>
+): AppState {
   const currentTurn: FigureType = state.currentTurn === "o" ? "x" : "o";
   switch (action.type) {
     case "setCell":
@@ -41,16 +105,24 @@ export function AppReducer(state: AppState, action: ReducerAction<IAction>) {
       if (board[action.payload.index] !== "") return state;
       board[action.payload.index] = state.currentTurn;
 
-      if (checkWinner(board)) {
+      const winner = checkWinner(board);
+      if (winner.winnerFound) {
         // TODO: add congratulations
         score[state.currentTurn]++;
-        board = initialState.board;
-        return { board, score, currentTurn };
+        board = [...winner.winnerBoard];
+        return {
+          ...state,
+          isEndGame: true,
+          winner: winner.winner,
+          board,
+          score,
+          currentTurn,
+        };
       } else if (checkTie(board)) {
         score.ties++;
         board = initialState.board;
-        return { board, score, currentTurn };
-      } else return { board, score, currentTurn };
+        return { ...state, isEndGame: true, board, score, currentTurn };
+      } else return { ...state, board, score, currentTurn };
     case "resetBoard":
       return { ...state, board: initialState.board, currentTurn };
     case "reset":

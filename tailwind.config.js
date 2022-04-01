@@ -9,6 +9,7 @@ module.exports = {
         gray: "#a7bfc9",
         cyan: "#2ec4bd",
         yellow: "#f4b037",
+        darkCyan: "#203540",
       },
     },
     container: {

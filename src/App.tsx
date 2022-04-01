@@ -1,4 +1,5 @@
 import Board from "./components/Board";
+import Greetengs from "./components/Greetengs";
 import AppContextProvider from "./state/AppContextProvider";
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
           Tic-Tac-Toe
         </h1>
         <Board />
+        <Greetengs />
       </div>
     </AppContextProvider>
   );

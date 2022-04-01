@@ -12,6 +12,8 @@ export interface AppState {
     ties: number;
   };
   currentTurn: "x" | "o";
+  winner: FigureType;
+  isEndGame: boolean;
 }
 
 const getRandomCurrentTurn = () => {
@@ -26,6 +28,8 @@ export const initialState: AppState = {
     ties: 0,
   },
   currentTurn: getRandomCurrentTurn(),
+  winner: "",
+  isEndGame: false,
 };
 
 export const AppContext = createContext<AppState>(initialState);
