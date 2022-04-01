@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { actions } from "../state/actions";
 import { AppContext, DispatchContext } from "../state/state";
 import Figure, { FigureType } from "./Figure";
 
@@ -21,7 +22,7 @@ const Cell = ({ figure = "", index }: Props) => {
 
   const handleClick = () => {
     if (!dispatch) return;
-    dispatch({ type: "setCell", payload: { index } });
+    dispatch(actions.setCell(index));
   };
 
   return (

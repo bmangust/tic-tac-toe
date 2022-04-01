@@ -27,7 +27,7 @@ const checkWinner = (board: FigureType[]): IWinner => {
       winnerBoard: [...board],
     };
     result.winnerFound = true;
-    result.winner = board[0];
+    result.winner = winner;
     winnerCells.forEach(
       (i) => (result.winnerBoard[i] = winner === "x" ? "X" : "O")
     );
@@ -107,7 +107,8 @@ export function AppReducer(
 
       const winner = checkWinner(board);
       if (winner.winnerFound) {
-        // TODO: add congratulations
+        console.log(winner);
+
         score[state.currentTurn]++;
         board = [...winner.winnerBoard];
         return {
@@ -120,11 +121,21 @@ export function AppReducer(
         };
       } else if (checkTie(board)) {
         score.ties++;
-        board = initialState.board;
-        return { ...state, isEndGame: true, board, score, currentTurn };
+        return {
+          ...state,
+          isEndGame: true,
+          board: initialState.board,
+          score,
+          currentTurn,
+        };
       } else return { ...state, board, score, currentTurn };
     case "resetBoard":
-      return { ...state, board: initialState.board, currentTurn };
+      return {
+        ...initialState,
+        score: state.score,
+        board: initialState.board,
+        currentTurn,
+      };
     case "reset":
       return { ...initialState, currentTurn };
     default:

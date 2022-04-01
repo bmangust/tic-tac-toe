@@ -1,13 +1,13 @@
-import React, { FC } from "react";
+import React, { FC, HTMLProps } from "react";
 
-type Props = {
-  className?: string;
+interface Props extends HTMLProps<HTMLButtonElement> {
   bgColor?: string;
-};
+}
 
-const Button: FC<Props> = ({ className, bgColor, children }) => {
+const Button: FC<Props> = ({ className, bgColor, children, onClick }) => {
   return (
     <button
+      onClick={onClick}
       className={`text-center rounded-xl p-3 px-6
     text-main grid place-content-center ${className || ""} ${
         bgColor || "bg-gray"
