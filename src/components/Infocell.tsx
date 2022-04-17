@@ -8,8 +8,7 @@ interface Props {
 
 const Infocell = ({ score, figure }: Props) => {
   const [ping, setPing] = useState("");
-  const bgColor =
-    figure === "x" ? "bg-cyan" : figure === "o" ? "bg-yellow" : "bg-gray";
+  const color = figure === "x" ? "cyan" : figure === "o" ? "yellow" : "gray";
   const text = figure === "x" ? "X (YOU)" : figure === "o" ? "O (CPU)" : "TIES";
 
   // adds animation for short time when score changes
@@ -21,7 +20,7 @@ const Infocell = ({ score, figure }: Props) => {
   return (
     <div
       className={`text-center rounded-xl p-3
-      ${bgColor} text-main grid place-content-center`}
+      bg-${color} text-main grid place-content-center`}
     >
       <div className="text-xs sm:text-lg font-bold">{text}</div>
       <div className={`text-lg sm:text-xl font-black ${ping}`}>{score}</div>

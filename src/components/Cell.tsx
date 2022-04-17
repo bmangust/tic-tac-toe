@@ -30,7 +30,7 @@ const Cell = ({ figure = "", index }: Props) => {
       className={`rounded-2xl ${bg} shadow-md grid
     place-content-center min-w-[4rem] min-h-[4rem] p-6
     md:p-8 md:min-w-[8rem] md:min-h-[8rem]
-    cursor-pointer group`}
+    cursor-pointer group drop-shadow-xl`}
       onClick={handleClick}
     >
       {/* preview on hover */}

@@ -20,8 +20,8 @@ const TopBar = () => {
         </div>
       </div>
       <div
-        className="rounded-xl p-2 bg-cell shadow-md
-                flex items-center justify-center text-gray"
+        className="rounded-xl p-2 bg-cell drop-shadow-lg
+        shadow-md flex items-center justify-center text-gray"
       >
         <span className="h-4 w-4 mr-2">
           <Figure figure={currentTurn} color="#a7bfc9" />
@@ -32,7 +32,7 @@ const TopBar = () => {
         <button
           onClick={handleReset}
           className="w-9 h-9 rounded-lg bg-gray text-main
-                    flex justify-center items-center"
+            flex justify-center items-center drop-shadow-gray"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
