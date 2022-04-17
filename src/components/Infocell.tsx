@@ -23,8 +23,8 @@ const Infocell = ({ score, figure }: Props) => {
       className={`text-center rounded-xl p-3
       ${bgColor} text-main grid place-content-center`}
     >
-      <div className="text-sm font-bold">{text}</div>
-      <div className={`text-lg font-black ${ping}`}>{score}</div>
+      <div className="text-xs sm:text-lg font-bold">{text}</div>
+      <div className={`text-lg sm:text-xl font-black ${ping}`}>{score}</div>
     </div>
   );
 };

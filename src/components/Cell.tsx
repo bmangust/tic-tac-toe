@@ -27,8 +27,9 @@ const Cell = ({ figure = "", index }: Props) => {
 
   return (
     <div
-      className={`rounded-2xl p-8 ${bg} shadow-md
-    grid place-content-center min-w-[8rem] min-h-[8rem]
+      className={`rounded-2xl ${bg} shadow-md grid
+    place-content-center min-w-[4rem] min-h-[4rem] p-6
+    md:p-8 md:min-w-[8rem] md:min-h-[8rem]
     cursor-pointer group`}
       onClick={handleClick}
     >

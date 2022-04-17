@@ -12,7 +12,7 @@ const TopBar = () => {
   };
 
   return (
-    <div className="m-1 grid gap-4 grid-cols-3">
+    <div className="m-1 grid gap-4 grid-cols-3 mb-12">
       <div className="flex items-center">
         <div className="flex h-7">
           <Figure figure="x" className="w-10" />
@@ -23,7 +23,7 @@ const TopBar = () => {
         className="rounded-xl p-2 bg-cell shadow-md
                 flex items-center justify-center text-gray"
       >
-        <span className="h-4 mr-2">
+        <span className="h-4 w-4 mr-2">
           <Figure figure={currentTurn} color="#a7bfc9" />
         </span>
         <span className="text-md font-bold">TURN</span>
