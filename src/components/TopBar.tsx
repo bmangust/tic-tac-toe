@@ -1,14 +1,12 @@
 import { useContext } from "react";
-import { AppContext, DispatchContext } from "../state/state";
+import { AppContext } from "../state/AppState";
 import Figure from "./Figure";
 
 const TopBar = () => {
-  const { currentTurn } = useContext(AppContext);
-  const dispatch = useContext(DispatchContext);
+  const { currentTurn, reset } = useContext(AppContext);
 
   const handleReset = () => {
-    if (!dispatch) return;
-    dispatch({ type: "reset" });
+    reset();
   };
 
   return (

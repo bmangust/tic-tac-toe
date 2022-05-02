@@ -1,6 +1,6 @@
 import Board from "./components/Board";
 import Greetengs from "./components/Greetengs";
-import AppContextProvider from "./state/AppContextProvider";
+import AppContextProvider from "./state/AppState";
 
 function App() {
   return (

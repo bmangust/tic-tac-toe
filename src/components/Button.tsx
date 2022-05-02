@@ -1,4 +1,4 @@
-import React, { FC, HTMLProps } from "react";
+import { FC, HTMLProps } from "react";
 
 interface Props extends HTMLProps<HTMLButtonElement> {
   bgColor?: string;

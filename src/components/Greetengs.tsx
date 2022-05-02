@@ -1,20 +1,19 @@
-import React, { useContext } from "react";
-import { actions } from "../state/actions";
-import { AppContext, DispatchContext } from "../state/state";
+import { observer } from "mobx-react-lite";
+import { useContext } from "react";
+import { AppContext } from "../state/AppState";
 import Button from "./Button";
 import Figure from "./Figure";
 
-const Greetengs = () => {
-  const { isEndGame, winner } = useContext(AppContext);
-  const dispatch = useContext(DispatchContext);
+const Greetengs = observer(() => {
+  const { isEndGame, winner, resetBoard, reset } = useContext(AppContext);
   const textColor = winner === "o" ? "text-yellow" : "text-cyan";
   const buttonColor = winner !== "o" ? "bg-yellow" : "bg-cyan";
 
   const handleQuit = () => {
-    dispatch && dispatch(actions.reset());
+    reset();
   };
   const handleNextRound = () => {
-    dispatch && dispatch(actions.resetBoard());
+    resetBoard();
   };
 
   return isEndGame ? (
@@ -49,6 +48,6 @@ const Greetengs = () => {
       </div>
     </>
   ) : null;
-};
+});
 
 export default Greetengs;

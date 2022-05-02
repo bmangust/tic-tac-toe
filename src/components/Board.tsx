@@ -1,10 +1,11 @@
+import { observer } from "mobx-react-lite";
 import { useContext } from "react";
-import { AppContext } from "../state/state";
+import { AppContext } from "../state/AppState";
 import Cell from "./Cell";
 import Infocell from "./Infocell";
 import TopBar from "./TopBar";
 
-const Board = () => {
+const Board = observer(() => {
   const { board, score } = useContext(AppContext);
 
   return (
@@ -22,6 +23,6 @@ const Board = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Board;
