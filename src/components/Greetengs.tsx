@@ -1,13 +1,13 @@
 import { observer } from "mobx-react-lite";
 import { useContext } from "react";
 import { AppContext } from "../state/AppState";
-import Button from "./Button";
-import Figure from "./Figure";
+import { Button } from "./Button";
+import { Figure } from "./Figure";
 
-const Greetengs = observer(() => {
+export const Greetengs = observer(() => {
   const { isEndGame, winner, resetBoard, reset } = useContext(AppContext);
-  const textColor = winner === "o" ? "text-yellow" : "text-cyan";
-  const buttonColor = winner !== "o" ? "bg-yellow" : "bg-cyan";
+  const textColor = winner === "o" ? "yellow" : "cyan";
+  const buttonColor = winner !== "o" ? "yellow" : "cyan";
 
   const handleQuit = () => {
     reset();
@@ -27,7 +27,7 @@ const Greetengs = observer(() => {
           {winner === "x" ? "You" : winner === "o" ? "CPU" : "nobody"} won!
         </span>
         <span
-          className={`${textColor} flex justify-center items-center w-screen
+          className={`text-${textColor} flex justify-center items-center w-screen
           text-4xl font-bold tracking-wider`}
         >
           {winner === "" ? (
@@ -41,7 +41,7 @@ const Greetengs = observer(() => {
         </span>
         <div className="flex gap-4">
           <Button onClick={handleQuit}>quit</Button>
-          <Button onClick={handleNextRound} bgColor={`${buttonColor}`}>
+          <Button onClick={handleNextRound} color={`${buttonColor}`}>
             next round
           </Button>
         </div>
@@ -49,5 +49,3 @@ const Greetengs = observer(() => {
     </>
   ) : null;
 });
-
-export default Greetengs;

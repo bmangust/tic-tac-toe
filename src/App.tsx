@@ -1,5 +1,5 @@
-import Board from "./components/Board";
-import Greetengs from "./components/Greetengs";
+import { BoardContainer } from "./components/BoardContainer";
+import { Greetengs } from "./components/Greetengs";
 import AppContextProvider from "./state/AppState";
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
         <h1 className="w-full text-5xl text-center mb-10 font-black">
           Tic-Tac-Toe
         </h1>
-        <Board />
+        <BoardContainer />
         <Greetengs />
       </div>
     </AppContextProvider>

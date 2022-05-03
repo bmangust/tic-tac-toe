@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { FigureType } from "./Figure";
+import { type FigureType } from "./Figure";
 
 interface Props {
   score: number;
   figure: FigureType;
 }
 
-const Infocell = ({ score, figure }: Props) => {
+export const Infocell = ({ score, figure }: Props) => {
   const [ping, setPing] = useState("");
   const color = figure === "x" ? "cyan" : figure === "o" ? "yellow" : "gray";
   const text = figure === "x" ? "X (YOU)" : figure === "o" ? "O (CPU)" : "TIES";
@@ -27,5 +27,3 @@ const Infocell = ({ score, figure }: Props) => {
     </div>
   );
 };
-
-export default Infocell;

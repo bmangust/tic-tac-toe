@@ -6,7 +6,7 @@ interface Props {
   width?: string;
   className?: string;
 }
-const Figure = ({ figure, color, width = "100%", className }: Props) => {
+export const Figure = ({ figure, color, width = "100%", className }: Props) => {
   if (figure === "o" || figure === "O")
     return (
       <svg
@@ -43,5 +43,3 @@ const Figure = ({ figure, color, width = "100%", className }: Props) => {
     );
   return null;
 };
-
-export default Figure;

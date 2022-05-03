@@ -1,14 +1,13 @@
-import { observer } from "mobx-react-lite";
 import { useContext } from "react";
 import { AppContext } from "../state/AppState";
-import Figure, { FigureType } from "./Figure";
+import { Figure, type FigureType } from "./Figure";
 
 interface Props {
   figure?: FigureType | "";
   index: number;
 }
 
-const Cell = ({ figure = "", index }: Props) => {
+export const Cell = ({ figure = "", index }: Props) => {
   const { currentTurn, setCell } = useContext(AppContext);
   // if 'x' or 'o' use dark bg
   // else use color of figure
@@ -43,5 +42,3 @@ const Cell = ({ figure = "", index }: Props) => {
     </div>
   );
 };
-
-export default Cell;
