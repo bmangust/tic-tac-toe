@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite";
-import { Board } from "./Board";
-import { Score } from "./Score";
-import { TopBar } from "./TopBar";
+import { Board } from "../components/Board";
+import { Score } from "../components/Score";
+import { TopBar } from "../components/TopBar";
 
 export const BoardContainer = observer(() => {
   return (

@@ -1,10 +1,10 @@
 import { observer } from "mobx-react-lite";
 import { useContext } from "react";
 import { AppContext } from "../state/AppState";
-import { Button } from "./Button";
-import { Figure } from "./Figure";
+import { Button } from "../components/Button";
+import { Figure } from "../components/Figure";
 
-export const Greetengs = observer(() => {
+export const Greetings = observer(() => {
   const { isEndGame, winner, resetBoard, reset } = useContext(AppContext);
   const textColor = winner === "o" ? "yellow" : "cyan";
   const buttonColor = winner !== "o" ? "yellow" : "cyan";
